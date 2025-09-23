@@ -10,10 +10,10 @@ interface MotivationalMessageProps {
 }
 
 const messages: { [key: number]: string } = {
-  25: "Great start! You're building something amazing 🚀",
-  50: "Halfway there! Your insights are taking shape 📊",
-  75: "Almost there! Ready to unlock your business potential 💡",
-  100: "Perfect! Generating your analysis report 🎯"
+  25: "Great start! You're building something amazing",
+  50: "Halfway there! Your insights are taking shape",
+  75: "Almost there! Ready to unlock your business potential",
+  100: "Perfect! Generating your analysis report"
 };
 
 // Takes the current questions progress to generate the message based on it

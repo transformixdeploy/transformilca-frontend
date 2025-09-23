@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import { ArrowRight, Zap } from 'lucide-react';
 import Link from 'next/link';
-import { Dialog, DialogContent, DialogTrigger } from './ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from './ui/dialog';
 import MultiStepFormWizard from './MultiStepFormWizard';
 
 const HeroSection: React.FC = () => {
@@ -77,6 +77,7 @@ const HeroSection: React.FC = () => {
 
             {/* modal content (which is the MultiStepWizard component) */}
             <DialogContent className="sm:max-w-md md:max-w-lg bg-card border-border/70 p-0 overflow-hidden max-h-[90vh] flex flex-col">
+              <DialogTitle className="DialogTitle hidden"/>
               <MultiStepFormWizard onClose={() => setOpen(false)} />
             </DialogContent>
           </Dialog>

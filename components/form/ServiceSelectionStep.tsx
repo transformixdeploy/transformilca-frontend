@@ -36,10 +36,10 @@ const ServiceSelectionStep: React.FC<ServiceSelectionStepProps> = ({ services, o
         >
           <Card 
             onClick={() => onSelect(service)}
-            className="cursor-pointer hover:border-primary transition-all duration-200 h-full flex flex-col items-center text-center p-3 md:p-4 bg-background/50 hover:bg-muted/50"
+            className="cursor-pointer hover:border-primary transition-all duration-200 h-full flex flex-col items-center justify-center text-center p-3 md:p-4 bg-background/50 hover:bg-muted/50"
           >
-            <CardHeader className="p-1 md:p-2">
-              {<Icon className="w-6 h-6 mb-1 text-primary"/>}
+            <CardHeader className="p-1 md:p-2 text-center flex flex-col items-center">
+              <Icon className="w-6 h-6 mb-1 text-primary"/>
               <CardTitle className="text-sm md:text-md font-semibold">{service.name}</CardTitle>
             </CardHeader>
             <CardContent className="p-1 md:p-2 text-xs md:text-sm text-muted-foreground">

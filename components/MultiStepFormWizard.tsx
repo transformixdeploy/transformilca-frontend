@@ -241,7 +241,7 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose }) =>
   );
 
   return (
-    <Card className="w-full max-w-xl mx-auto shadow-xl">
+    <Card className="w-full max-w-xl mx-auto shadow-xl max-h-full overflow-y-auto">
       {wizardContent}
     </Card>
   );

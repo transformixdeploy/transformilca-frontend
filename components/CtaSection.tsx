@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import { Rocket, MessageSquare, ArrowRight } from 'lucide-react';
-import { Dialog, DialogContent, DialogTrigger } from './ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from './ui/dialog';
 import MultiStepFormWizard from './MultiStepFormWizard';
 
 const CtaSection = () => {
@@ -59,6 +59,7 @@ const CtaSection = () => {
 
             {/* modal content (which is the MultiStepWizard component) */}
             <DialogContent className="sm:max-w-md md:max-w-lg bg-card border-border/70 p-0 overflow-hidden max-h-[90vh] flex flex-col">
+              <DialogTitle className="DialogTitle hidden"/>
               <MultiStepFormWizard onClose={() => setOpen(false)} />
             </DialogContent>
           </Dialog>
