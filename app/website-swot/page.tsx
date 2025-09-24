@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/ca
 import ReactMarkdown from 'react-markdown'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 const WebsiteSWOT = () => {
   
@@ -58,6 +59,11 @@ const WebsiteSWOT = () => {
 
     }, []);
 
+    function handleDeleteAnalysis(){
+      localStorage.removeItem("websiteSWOTData");
+      router.push("/");
+    }
+
   return (
     <div className="container mx-auto py-8">
       <motion.h1
@@ -66,7 +72,12 @@ const WebsiteSWOT = () => {
         transition={{ duration: 0.5, delay: 0 }}
         className="text-5xl font-extrabold text-center mb-12 bg-gradient-to-r from-primary via-secondary to-accent text-transparent bg-clip-text font-display"
       >
-        Website SWOT Analysis
+        <div>
+          Website SWOT Analysis
+        </div>
+        <Button onClick={handleDeleteAnalysis} size="lg" className="bg-background text-red-600 hover:bg-background/90 shadow-lg transform hover:scale-105">
+          Delete this analysis
+        </Button>
       </motion.h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -267,7 +278,7 @@ const WebsiteSWOT = () => {
       </div>
 
       {/* Summary */}
-      <motion.div
+      {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
@@ -281,7 +292,7 @@ const WebsiteSWOT = () => {
               <ReactMarkdown>{data.summary}</ReactMarkdown>
             </CardContent>
           </Card>
-        </motion.div>
+        </motion.div> */}
 
         {/* Full Social Analysis */}
         <motion.div
