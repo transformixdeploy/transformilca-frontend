@@ -75,9 +75,10 @@ const Header = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button onClick={() => router.push('/auth')} size="sm" className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg">
-                <LogIn className="mr-2 h-4 w-4" /> Sign In
-              </Button>
+              // <Button onClick={() => router.push('/auth')} size="sm" className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+              //   <LogIn className="mr-2 h-4 w-4" /> Sign In
+              // </Button>
+              <></>
             )
           }
 

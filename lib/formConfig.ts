@@ -56,14 +56,17 @@ export const questionsConfig: QuestionsConfig = {
     { id: 'websiteUrl', label: "Company Website URL?", type: 'url', placeholder: "https://yourcompany.com", required: true },
   ],
   customer_sentiment: [
-    { id: 'websiteUrlSentiment', label: "Company Website URL (for context)?", type: 'url', placeholder: "https://yourcompany.com", required: true },
-    { id: 'googleMapsLink', label: "Google Maps Business Profile Link?", type: 'url', placeholder: "https://maps.google.com/?cid=...", required: false },
-    { id: 'trustpilotLink', label: "Trustpilot Page Link (optional)?", type: 'url', placeholder: "https://trustpilot.com/review/yourcompany", required: false },
-    { id: 'otherReviewsLink', label: "Other Review Links (optional, comma-separated)?", type: 'text', placeholder: "e.g., Yelp, Capterra", required: false },
+    { id: 'industry', label: "What industry is your business in?", type: 'text', placeholder: "e.g., Retail, Technology, Healthcare", required: true },
+    // { id: 'websiteUrlSentiment', label: "Company Website URL (for context)?", type: 'url', placeholder: "https://yourcompany.com", required: true },
+    // { id: 'googleMapsLink', label: "Google Maps Business Profile Link?", type: 'url', placeholder: "https://maps.google.com/?cid=...", required: false },
+    // { id: 'trustpilotLink', label: "Trustpilot Page Link (optional)?", type: 'url', placeholder: "https://trustpilot.com/review/yourcompany", required: false },
+    // { id: 'otherReviewsLink', label: "Other Review Links (optional, comma-separated)?", type: 'text', placeholder: "e.g., Yelp, Capterra", required: false },
   ],
   branding_audit: [
     { id: 'logoUpload', label: "Upload Company Logo", type: 'file', accept: 'image/*', required: true, icon: ImageIcon, iconClassName: "w-4 h-4 mr-2" },
-    { id: 'brandGuidelinesUpload', label: "Upload Brand Guidelines PDF (optional)", type: 'file', accept: '.pdf', required: false, icon: FileText, iconClassName: "w-4 h-4 mr-2" },
+    { id: 'websiteUrl', label: "Company Website URL?", type: 'url', placeholder: "https://yourcompany.com", required: true },
+    { id: 'instagramLink', label: "Instagram Profile Link?", type: 'url', placeholder: "https://instagram.com/yourprofile", required: true },
+    // { id: 'brandGuidelinesUpload', label: "Upload Brand Guidelines PDF (optional)", type: 'file', accept: '.pdf', required: false, icon: FileText, iconClassName: "w-4 h-4 mr-2" },
   ],
 };
 

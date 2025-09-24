@@ -12,6 +12,7 @@ import QuestionRenderer from './form/QuestionRenderer';
 import FormNavigation from './form/FormNavigation';
 import { services, getQuestionsForService, Service, Question } from '../lib/formConfig';
 import { useRouter } from 'next/navigation';
+import axios from "axios";
 
 const slideVariants: Variants = {
   enter: (direction: number) => ({ x: direction > 0 ? '100%' : '-100%', opacity: 0 }),
@@ -116,6 +117,7 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose }) =>
       service_id: selectedService?.id,
       service_name: selectedService?.name,
       company_name: formData.companyName || null,
+      industry: formData.industry || null,
       business_description: formData.businessDescription || null,
       goal: formData.goal || null,
       country: formData.country || null,
@@ -130,7 +132,59 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose }) =>
       raw_form_data: formData 
     };
 
-    console.log(submissionData);
+    // console.log(submissionData);
+    
+    if(submissionData.service_id === "social_media_swot"){
+      
+      const form = {
+        business_description: submissionData.business_description,
+        company_name: submissionData.company_name,
+        country: submissionData.country,
+        goal: submissionData.goal,
+        instagram_link: submissionData.instagram_link
+      }
+      
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/social-swot-analysis`, form );      
+    
+    }else if(submissionData.service_id === "website_audit_swot"){
+      
+      const form = {
+        business_description: submissionData.business_description,
+        company_name: submissionData.company_name,
+        country: submissionData.country,
+        goal: submissionData.goal,
+        website_url: submissionData.website_url
+      }
+
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/website-swot-analysis`, form );
+
+    }else if(submissionData.service_id === "customer_sentiment"){
+      
+      const form = {
+        company_name: submissionData.company_name,
+        business_description: submissionData.business_description,
+        goal: submissionData.goal,
+        country: submissionData.country,
+        industry_field: submissionData.industry,
+      }
+
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/customer-sentiment-analysis`, form );
+
+    }else if(submissionData.service_id === "branding_audit"){
+      
+      const form = new FormData();
+      form.append("company_name", submissionData.company_name || "");
+      form.append("business_description", submissionData.business_description || "");
+      form.append("goal", submissionData.goal || "");
+      form.append("country", submissionData.country || "");
+      form.append("website_url", submissionData.website_url || "");
+      form.append("instagram_link", submissionData.instagram_link || "");
+      form.append("logoUpload", submissionData.raw_form_data.logoUpload || new File([], ""));
+      
+      
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/branding-audit`, form );
+    }
+    
     
 
     try {
