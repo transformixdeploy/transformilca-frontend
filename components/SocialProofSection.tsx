@@ -36,7 +36,7 @@ const SocialProofSection = () => {
           <Card className="max-w-2xl mx-auto bg-muted/30 border-border/50 shadow-xl p-6 md:p-8 rounded-xl">
             <CardContent className="p-0">
               <blockquote className="text-lg md:text-xl italic text-foreground/90">
-                "Transformellica found $50K worth of missed opportunities in our first report. This AI is scary good."
+                {'"Transformellica found $50K worth of missed opportunities in our first report. This AI is scary good."'}
               </blockquote>
               <p className="text-right mt-4 font-semibold text-primary">
                 - Marketing Director, Fortune 500 Company

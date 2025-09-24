@@ -30,11 +30,12 @@ interface FormErrors {
 
 interface MultiStepFormWizardProps {
   onClose?: () => void; // Added onClose prop
+  setAnalysing: (analysing: boolean) => void;
 }
 
 // As this wizard is being called by another page that renders a modal to show this 
 // wizard so the page should page the "onClose" function so the wizard can use it to close the modal that was opened earlier
-const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose }) => {
+const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose, setAnalysing }) => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [formData, setFormData] = useState<FormData>({});
@@ -67,6 +68,11 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose }) =>
   // we will pass this function to the "ServiceSelectionStep" component so it can use this function to set the "selectedService" variable here 
   // as the "ServiceSelectionStep" component is expecting a function called "onSelect()" in its props
   const handleServiceSelect = (service: Service) => {
+
+    if(service.id == "website_audit_swot" && localStorage.getItem("websiteSWOTData")){
+      return router.push("/website-swot");
+    }
+
     setDirection(1);
     setSelectedService(service);
     setCurrentStep(1);
@@ -112,6 +118,7 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose }) =>
   const handleSubmit = async () => {
     // No user concept, no authentication check
     
+    setAnalysing(true);
     
     const submissionData = {
       service_id: selectedService?.id,
@@ -155,8 +162,13 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose }) =>
         goal: submissionData.goal,
         website_url: submissionData.website_url
       }
-
+      
       const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/website-swot-analysis`, form );
+      const websiteSWOTData = response.data;
+
+      localStorage.setItem("websiteSWOTData", JSON.stringify(websiteSWOTData));
+      
+      router.push("/website-swot");
 
     }else if(submissionData.service_id === "customer_sentiment"){
       
@@ -196,10 +208,14 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose }) =>
         setSelectedService(null);
         setCurrentStep(0);
         setFormData({});
+        setAnalysing(false);
       }, 500);
 
-    } catch (error: any) {
+    } catch (error) {
       console.error('Supabase submission error:', error);
+      setAnalysing(false);
+    } finally{
+      setAnalysing(false);
     }
   };
   
@@ -260,7 +276,7 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose }) =>
             >
               <CheckCircle className="w-12 h-12 md:w-16 md:h-16 text-green-500 mx-auto" />
               <h3 className="text-lg md:text-xl font-semibold">All Set!</h3>
-              <p className="text-muted-foreground text-sm md:text-base">You've answered all questions. Ready to submit your request?</p>
+              <p className="text-muted-foreground text-sm md:text-base">{"You've answered all questions. Ready to submit your request?"}</p>
             </motion.div>
           )}
 

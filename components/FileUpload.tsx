@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useDropzone, FileRejection } from 'react-dropzone';
 import { UploadCloud, XCircle, File as FileIcon } from 'lucide-react';
 import { Button } from './ui/button';
 import { cn } from '../lib/utils';
@@ -19,7 +19,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ id, onFileChange, accept, fileN
   const [uploadedFile, setUploadedFile] = useState<File | null>(initialFileName ? { name: initialFileName } as File : null);
   const [error, setError] = useState<string>('');
 
-  const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: any[]) => {
+  const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
     setError('');
     if (rejectedFiles && rejectedFiles.length > 0) {
       setError(`File type not accepted. Please upload ${accept}.`);
@@ -84,7 +84,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ id, onFileChange, accept, fileN
             {isDragActive ? (
               <p>Drop the file here ...</p>
             ) : (
-              <p>Drag 'n' drop a file here, or click to select file</p>
+              <p>{"Drag 'n' drop a file here, or click to select file"}</p>
             )}
             <p className="text-xs mt-1">({accept || 'Any file type'})</p>
           </div>

@@ -8,7 +8,11 @@ import Link from 'next/link';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from './ui/dialog';
 import MultiStepFormWizard from './MultiStepFormWizard';
 
-const HeroSection: React.FC = () => {
+interface HeroSectionProps {
+  setAnalysing: (analysing: boolean) => void;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ setAnalysing }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -30,7 +34,7 @@ const HeroSection: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight"
         >
-          The World's First All-in-One 
+          {"The World's First All-in-One "}
           <br className="hidden md:block" />
           <span className="bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text"> AI Marketing Analytics</span> Platform
         </motion.h1>
@@ -53,7 +57,7 @@ const HeroSection: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="text-lg sm:text-xl text-foreground/80 max-w-2xl mx-auto mb-10"
         >
-          Transform your marketing strategy with the industry's most advanced AI-powered analytics suite. Get instant, comprehensive reports that reveal exactly what's working, what's not, and what to do next.
+          {"Transform your marketing strategy with the industry's most advanced AI-powered analytics suite. Get instant, comprehensive reports that reveal exactly what's working, what's not, and what to do next."}
         </motion.p>
 
         {/* action buttons */}
@@ -78,7 +82,7 @@ const HeroSection: React.FC = () => {
             {/* modal content (which is the MultiStepWizard component) */}
             <DialogContent className="sm:max-w-md md:max-w-lg bg-card border-border/70 p-0 overflow-hidden max-h-[90vh] flex flex-col">
               <DialogTitle className="DialogTitle hidden"/>
-              <MultiStepFormWizard onClose={() => setOpen(false)} />
+              <MultiStepFormWizard onClose={() => setOpen(false)} setAnalysing={setAnalysing} />
             </DialogContent>
           </Dialog>
 

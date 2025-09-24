@@ -7,7 +7,11 @@ import { Rocket, MessageSquare, ArrowRight } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from './ui/dialog';
 import MultiStepFormWizard from './MultiStepFormWizard';
 
-const CtaSection = () => {
+interface CTASectionProps {
+  setAnalysing: (analysing: boolean) => void;
+}
+
+const CtaSection: React.FC<CTASectionProps> = ({ setAnalysing }) => {
 
   const [open, setOpen] = useState(false);
 
@@ -34,7 +38,7 @@ const CtaSection = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg sm:text-xl max-w-2xl mx-auto mb-10 opacity-90"
         >
-          Your competitors are already using AI to get ahead. Don't get left behind with outdated, manual analysis methods.
+          {"Your competitors are already using AI to get ahead. Don't get left behind with outdated, manual analysis methods."}
         </motion.p>
 
         {/* action buttons */}
@@ -60,7 +64,7 @@ const CtaSection = () => {
             {/* modal content (which is the MultiStepWizard component) */}
             <DialogContent className="sm:max-w-md md:max-w-lg bg-card border-border/70 p-0 overflow-hidden max-h-[90vh] flex flex-col">
               <DialogTitle className="DialogTitle hidden"/>
-              <MultiStepFormWizard onClose={() => setOpen(false)} />
+              <MultiStepFormWizard setAnalysing={setAnalysing} onClose={() => setOpen(false)} />
             </DialogContent>
           </Dialog>
 
