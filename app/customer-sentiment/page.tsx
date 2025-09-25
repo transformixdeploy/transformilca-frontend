@@ -1,78 +1,68 @@
 "use client";
-import React, { useState } from 'react';
+import { localStorageDataNames } from '@/lib/constants';
+import React, { useEffect, useState } from 'react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, ZAxis, Label } from 'recharts';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import ReactMarkdown from 'react-markdown';
 
 const SentimentAnalysis = () => {
+
+    const router = useRouter();  
+    
     const [data, setData] = useState({
-        analysisTitle: "Customer Sentiment Analysis for [Your Business Name]",
-        competitorsAnalyzedNumber: 3,
-        totalReview: 1250,
-        avgGoogleRating: 4.5,
-        competitorsAnalyzed: [
-            {
-                name: "Competitor A",
-                googleRating: 4.2,
-                reviewsAnalyzed: 400,
-                positivePercentage: 75,
-                negativePercentage: 25,
-                avgSentiment: 0.6
-            },
-            {
-                name: "Competitor B",
-                googleRating: 4.8,
-                reviewsAnalyzed: 600,
-                positivePercentage: 90,
-                negativePercentage: 10,
-                avgSentiment: 0.8
-            },
-            {
-                name: "Competitor C",
-                googleRating: 3.9,
-                reviewsAnalyzed: 250,
-                positivePercentage: 60,
-                negativePercentage: 40,
-                avgSentiment: 0.3
-            }
-        ],
-        competitorsDetails: [
-            {
-                address: "123 Main St, Anytown",
-                googleMaps: "https://maps.google.com/?q=CompetitorA",
-                aiInsights: "Competitor A shows strong performance in customer service, but struggles with product variety. Focus on expanding your product line."
-            },
-            {
-                address: "456 Oak Ave, Anytown",
-                googleMaps: "https://maps.google.com/?q=CompetitorB",
-                aiInsights: "Competitor B excels in online presence and marketing. Consider enhancing your digital marketing efforts to compete effectively."
-            },
-            {
-                address: "789 Pine Ln, Anytown",
-                googleMaps: "https://maps.google.com/?q=CompetitorC",
-                aiInsights: "Competitor C has a loyal local customer base but lacks digital engagement. Improve your local SEO and community involvement."
-            }
-        ],
-        competitorSentimentComparisonChart: [
-            { name: "Competitor A", negative: 25, positive: 75, neutral: 0 },
-            { name: "Competitor B", negative: 10, positive: 90, neutral: 0 },
-            { name: "Competitor C", negative: 40, positive: 60, neutral: 0 }
-        ],
-        competitorRating_averageSentiment_chart: [
-            { googleRating: 4.2, averageSentiment: 0.6, competitorName: "Competitor A" },
-            { googleRating: 4.8, averageSentiment: 0.8, competitorName: "Competitor B" },
-            { googleRating: 3.9, averageSentiment: 0.3, competitorName: "Competitor C" }
-        ],
-        pieChart: {
-            title: "Overall Sentiment Score",
-            positive: 75,
-            negative: 20,
-            neutral: 5
-        },
-        reviewsAnalyzedPerCompetitor: [
-            { name: "Competitor A", reviews: 400 },
-            { name: "Competitor B", reviews: 600 },
-            { name: "Competitor C", reviews: 250 }
-        ]
-    });
+          analysisTitle: "",
+          competitorsAnalyzedNumber: 0,
+          totalReview: 0,
+          avgGoogleRating: 0,
+          competitorsAnalyzed: [
+              {
+                  name: "",
+                  googleRating: 0,
+                  reviewsAnalyzed: 0,
+                  positivePercentage: 0,
+                  negativePercentage: 0,
+                  avgSentiment: 0
+              }
+          ],
+          competitorsDetails: [
+              {
+                  address: "",
+                  googleMaps: "",
+                  aiInsights: ""
+              }
+          ],
+          competitorSentimentComparisonChart: [
+              { name: "", negative: 0, positive: 0, neutral: 0 }
+          ],
+          competitorRating_averageSentiment_chart: [
+              { googleRating: 0, averageSentiment: 0, competitorName: "" }
+          ],
+          pieChart: {
+              title: "",
+              positive: 0,
+              negative: 0,
+              neutral: 0
+          },
+          reviewsAnalyzedPerCompetitor: [
+              { name: "", reviews: 0 },
+          ]
+      });
+
+    useEffect(()=>{
+        
+      if(!localStorage.getItem(localStorageDataNames.SENTIMENT_ANALYSIS)){
+          return router.push("/");
+      }
+
+      setData(JSON.parse(localStorage.getItem(localStorageDataNames.SENTIMENT_ANALYSIS)!));
+
+    }, []);
+
+    function handleDeleteAnalysis(){
+      localStorage.removeItem(localStorageDataNames.SENTIMENT_ANALYSIS);
+      router.push("/");
+    }
 
     return (
         <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
@@ -85,6 +75,11 @@ const SentimentAnalysis = () => {
                 <p className="text-center text-gray-400 text-lg">
                     Comprehensive insights into your customer sentiment and competitive landscape.
                 </p>
+                <div className="flex justify-center mt-6">
+                  <Button onClick={handleDeleteAnalysis} size="lg" className="bg-background text-red-600 hover:bg-background/90 shadow-lg transform hover:scale-105">
+                    Delete this analysis
+                  </Button>
+                </div>
             </header>
 
             {/* first 3 crads */}
@@ -220,14 +215,14 @@ const SentimentAnalysis = () => {
               </div>
             </section>
 
-
+            {/* ai powered insights */}
             <section className="mb-12">
                 <h2 className="text-4xl font-bold text-white mb-8 text-center">AI-Powered Competitive Insights</h2>
                 <div className="space-y-8">
                     {data.competitorsDetails.map((detail, index) => (
                         <div key={index} className="bg-gray-800 rounded-lg shadow-xl p-8 border border-gray-700">
                             <h3 className="text-2xl font-bold text-blue-400 mb-4">Insights for {data.competitorsAnalyzed[index]?.name || `Competitor ${index + 1}`}</h3>
-                            <p className="text-gray-300 leading-relaxed mb-4">{detail.aiInsights}</p>
+                            <div className="text-gray-300 leading-relaxed mb-4"><ReactMarkdown>{detail.aiInsights}</ReactMarkdown></div>
                             <div className="flex items-center space-x-4">
                                 <span className="font-semibold text-gray-300">Address:</span>
                                 <p className="text-gray-400">{detail.address}</p>
