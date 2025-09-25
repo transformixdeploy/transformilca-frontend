@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import {localStorageDataNames} from "@/lib/constants";
 
 const WebsiteSWOT = () => {
   
@@ -51,16 +52,16 @@ const WebsiteSWOT = () => {
 
     useEffect(()=>{
         
-        if(!localStorage.getItem("websiteSWOTData")){
+        if(!localStorage.getItem(localStorageDataNames.WEBSITE_SWOT)){
             return router.push("/");
         }
 
-        setData(JSON.parse(localStorage.getItem("websiteSWOTData")!));
+        setData(JSON.parse(localStorage.getItem(localStorageDataNames.WEBSITE_SWOT)!));
 
     }, []);
 
     function handleDeleteAnalysis(){
-      localStorage.removeItem("websiteSWOTData");
+      localStorage.removeItem(localStorageDataNames.WEBSITE_SWOT);
       router.push("/");
     }
 

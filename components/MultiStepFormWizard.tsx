@@ -13,6 +13,7 @@ import FormNavigation from './form/FormNavigation';
 import { services, getQuestionsForService, Service, Question } from '../lib/formConfig';
 import { useRouter } from 'next/navigation';
 import axios from "axios";
+import { localStorageDataNames } from '@/lib/constants';
 
 const slideVariants: Variants = {
   enter: (direction: number) => ({ x: direction > 0 ? '100%' : '-100%', opacity: 0 }),
@@ -69,8 +70,17 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose, setA
   // as the "ServiceSelectionStep" component is expecting a function called "onSelect()" in its props
   const handleServiceSelect = (service: Service) => {
 
-    if(service.id == "website_audit_swot" && localStorage.getItem("websiteSWOTData")){
+    if(service.id == "website_audit_swot" && localStorage.getItem(localStorageDataNames.WEBSITE_SWOT)){
       return router.push("/website-swot");
+    }
+    else if(service.id == "social_media_swot" && localStorage.getItem(localStorageDataNames.SOCIAL_MEDIA_SWOT)){
+      return router.push("/social-swot");
+    }
+    else if(service.id == "customer_sentiment" && localStorage.getItem(localStorageDataNames.SENTIMENT_ANALYSIS)){
+      return router.push("/customer-sentiment");
+    }
+    else if(service.id == "branding_audit" && localStorage.getItem(localStorageDataNames.BRANDING_AUDIT)){
+      return router.push("/branding-audit");
     }
 
     setDirection(1);
@@ -151,7 +161,15 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose, setA
         instagram_link: submissionData.instagram_link
       }
       
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/social-swot-analysis`, form );      
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/social-swot-analysis`, form ); 
+      
+      /////////////////////////////
+      const socialSWOTData = response.data;
+
+      localStorage.setItem(localStorageDataNames.SOCIAL_MEDIA_SWOT, JSON.stringify(socialSWOTData));
+      
+      router.push("/social-swot");
+      /////////////////////////////
     
     }else if(submissionData.service_id === "website_audit_swot"){
       
@@ -166,7 +184,7 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose, setA
       const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/website-swot-analysis`, form );
       const websiteSWOTData = response.data;
 
-      localStorage.setItem("websiteSWOTData", JSON.stringify(websiteSWOTData));
+      localStorage.setItem(localStorageDataNames.WEBSITE_SWOT, JSON.stringify(websiteSWOTData));
       
       router.push("/website-swot");
 
@@ -181,6 +199,14 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose, setA
       }
 
       const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/customer-sentiment-analysis`, form );
+      
+      /////////////////////////////
+      const sentimentData = response.data;
+
+      localStorage.setItem(localStorageDataNames.SENTIMENT_ANALYSIS, JSON.stringify(sentimentData));
+      
+      router.push("/customer-sentiment");
+      /////////////////////////////
 
     }else if(submissionData.service_id === "branding_audit"){
       
@@ -195,6 +221,14 @@ const MultiStepFormWizard: React.FC<MultiStepFormWizardProps> = ({ onClose, setA
       
       
       const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/branding-audit`, form );
+
+      /////////////////////////////
+      const brandingAuditData = response.data;
+
+      localStorage.setItem(localStorageDataNames.BRANDING_AUDIT, JSON.stringify(brandingAuditData));
+      
+      router.push("/branding-audit");
+      /////////////////////////////
     }
     
     
