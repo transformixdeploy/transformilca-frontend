@@ -4,6 +4,7 @@ import React from 'react';
 import { motion, Variants } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { Service } from '../../lib/formConfig';
+import { BarChart } from 'lucide-react'; // Import BarChart icon
 
 interface ServiceSelectionStepProps {
   services: Service[];
@@ -48,6 +49,24 @@ const ServiceSelectionStep: React.FC<ServiceSelectionStepProps> = ({ services, o
           </Card>
         </motion.div>)
       })}
+      <motion.div
+        key="biAnalystTool"
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.97 }}
+      >
+        <Card 
+          onClick={() => window.open(process.env.NEXT_PUBLIC_CRM_URL, '_blank')}
+          className="cursor-pointer hover:border-primary transition-all duration-200 h-full flex flex-col items-center justify-center text-center p-3 md:p-4 bg-background/50 hover:bg-muted/50"
+        >
+          <CardHeader className="p-1 md:p-2 text-center flex flex-col items-center">
+            <BarChart className="w-6 h-6 mb-1 text-primary"/>
+            <CardTitle className="text-sm md:text-md font-semibold">BI Analyst Tool</CardTitle>
+          </CardHeader>
+          <CardContent className="p-1 md:p-2 text-xs md:text-sm text-muted-foreground">
+            Unlock powerful insights with our custom BI analysis services.
+          </CardContent>
+        </Card>
+      </motion.div>
     </motion.div>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 import { localStorageDataNames } from '@/lib/constants';
 import React, { useEffect, useState } from 'react';
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, ZAxis, Label } from 'recharts';
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, ZAxis, Label, PieLabelRenderProps } from 'recharts';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
@@ -140,7 +140,7 @@ const SentimentAnalysis = () => {
                                   outerRadius={100}
                                   fill="#8884d8"
                                   dataKey="value"
-                                  label={({ name, percent }: any) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                                  label={({ name, percent }: PieLabelRenderProps) => `${name || 'N/A'}: ${(((percent as number) || 0) * 100).toFixed(0)}%`}
                               >
                                   <Cell key="cell-0" fill="#34D399" /> {/* Green for Positive */}
                                   <Cell key="cell-1" fill="#EF4444" /> {/* Red for Negative */}

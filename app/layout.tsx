@@ -18,6 +18,11 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Transformellica AI Marketing Analytics",
   description: "AI-Powered Social Media & Website Analysis",
+  icons: {
+    icon: "/Logo.webp",    
+    shortcut: "/Logo.webp", 
+    apple: "/Logo.webp", 
+  },
 };
 
 export default function RootLayout({

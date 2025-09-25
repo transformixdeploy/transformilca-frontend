@@ -78,7 +78,7 @@ const BrandingAudit = () => {
                     Branding Audit Report
                 </h1>
                 <p className="text-center text-gray-400 text-lg mb-6">
-                    A comprehensive analysis of your brand's visual identity, messaging, and overall strategy.
+                    {"A comprehensive analysis of your brand's visual identity, messaging, and overall strategy."}
                 </p>
                 <div className="flex justify-center">
                     <Button onClick={handleDeleteAnalysis} size="lg" className="bg-background text-red-600 hover:bg-background/90 shadow-lg transform hover:scale-105">
