@@ -5,11 +5,12 @@ import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Toolti
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
+import Link from 'next/link';
 
 const SentimentAnalysis = () => {
 
     const router = useRouter();  
-    
+
     const [data, setData] = useState({
           analysisTitle: "",
           competitorsAnalyzedNumber: 0,
@@ -227,9 +228,9 @@ const SentimentAnalysis = () => {
                                 <span className="font-semibold text-gray-300">Address:</span>
                                 <p className="text-gray-400">{detail.address}</p>
                                 {detail.googleMaps && (
-                                    <a href={detail.googleMaps} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                                    <Link href={detail.googleMaps} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
                                         View on Google Maps
-                                    </a>
+                                    </Link>
                                 )}
                             </div>
                         </div>
